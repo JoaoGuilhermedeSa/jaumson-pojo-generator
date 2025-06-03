@@ -1,0 +1,1 @@
+# jaumson-pojo-generator
