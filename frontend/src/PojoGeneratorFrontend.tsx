@@ -14,7 +14,7 @@ const PojoGeneratorFrontend = () => {
     setGeneratedCode("");
 
     try {
-      const response = await fetch("http://localhost:8080/generate/java", {
+      const response = await fetch("http://localhost:8000/generate/java", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
