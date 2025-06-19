@@ -1,6 +1,7 @@
 package com.jaumson.pojo.generator.service.impl
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.jaumson.pojo.generator.model.GenerationOptions
 import com.jaumson.pojo.generator.service.PojoGenerator
 import org.springframework.stereotype.Component
 
@@ -18,16 +19,21 @@ class JavaPojoGenerator : PojoGenerator {
         "any" to "Object"
     )
 
-    override fun generate(schema: JsonNode, className: String, pkg: String): String {
+    override fun generate(schema: JsonNode, options: GenerationOptions): String {
+        var className = options.className ?: "MyClass";
+        var pkg = options.packageName ?: "com.example";
         val sb = StringBuilder("package $pkg;\n")
             sb.append( "public class $className {\n")
         val props = schema["properties"] ?: return ""
 
         sb.append("\n")
         generateAttributes(sb, props);
-        generateConstructors(className, sb, props);
-        generateGettersAndSetters(sb, props);
-
+        if (options.generateConstructors) {
+            generateConstructors(className, sb, props);
+        }
+        if (options.generateGettersAndSetters) {
+            generateGettersAndSetters(sb, props);
+        }
         sb.append("}\n")
         return sb.toString()
     }
