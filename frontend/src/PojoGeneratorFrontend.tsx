@@ -19,7 +19,7 @@ const PojoGeneratorFrontend = () => {
 
 
     try {
-      const url = new URL("http://localhost:8080/generate/java");
+      const url = new URL("http://localhost:8080/api/java");
       url.searchParams.append("generateConstructors", generateConstructors.toString());
       url.searchParams.append("generateGettersAndSetters", generateGettersAndSetters.toString())
       url.searchParams.append("className", className);
