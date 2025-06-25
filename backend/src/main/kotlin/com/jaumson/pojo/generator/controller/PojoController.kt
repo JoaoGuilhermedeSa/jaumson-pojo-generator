@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 class PojoController(private val generatorFactory: GeneratorFactory) {
 
-    @PostMapping("/java")
-    fun getPojo(@RequestBody schema: JsonNode, options: GenerationOptions): PojoResponse {
+    @PostMapping("/java/json")
+    fun getPojoByJson(@RequestBody schema: JsonNode, options: GenerationOptions): PojoResponse {
+        return PojoResponse(arrayOf(generatorFactory.getGenerator().generate(schema, options)));
+    }
+
+    @PostMapping("/java/yaml", consumes = ["application/yaml"])
+    fun getPojoByYaml(@RequestBody schema: JsonNode, options: GenerationOptions): PojoResponse {
         return PojoResponse(arrayOf(generatorFactory.getGenerator().generate(schema, options)));
     }
 }

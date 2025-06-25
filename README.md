@@ -43,7 +43,7 @@ The application will start at `http://localhost:8080`.
 ## 🧪 How to Test
 
 
-**Endpoint:** `POST http://localhost:8080/api/java`
+**Endpoint:** `POST http://localhost:8080/api/java/json`
 
 **Request body:**
 ```json
@@ -54,4 +54,16 @@ The application will start at `http://localhost:8080`.
     "bar": { "type": "integer" }
   }
 }
+```
+
+**Endpoint:** `POST http://localhost:8080/api/java/yaml`
+
+**Request body:**
+```yaml
+type: object
+properties:
+  foo:
+    type: string
+  bar:
+    type: integer
 ```

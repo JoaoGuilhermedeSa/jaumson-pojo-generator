@@ -22,7 +22,7 @@ class JavaPojoGenerator : PojoGenerator {
     override fun generate(schema: JsonNode, options: GenerationOptions): String {
         var className = options.className ?: "MyClass";
         var pkg = options.packageName ?: "com.example";
-        val sb = StringBuilder("package $pkg;\n")
+        val sb = StringBuilder("package $pkg;\n\n")
             sb.append( "public class $className {\n")
         val props = schema["properties"] ?: return ""
 
@@ -62,8 +62,8 @@ class JavaPojoGenerator : PojoGenerator {
             val type = prop["type"]?.asText() ?: "any"
             val javaType = typeMap[type] ?: "Object"
             val capitalized = name.replaceFirstChar { it.uppercase() }
-            sb.append("    public $javaType get$capitalized() { return $name; }\n")
-            sb.append("    public void set$capitalized($javaType $name) { this.$name = $name; }\n")
+            sb.append("    public $javaType get$capitalized() {\n      return $name;\n    }\n")
+            sb.append("    public void set$capitalized($javaType $name) {\n      this.$name = $name;\n    }\n")
         }
         sb.append("\n")
     }
