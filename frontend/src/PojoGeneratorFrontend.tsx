@@ -19,7 +19,7 @@ const PojoGeneratorFrontend = () => {
     setGeneratedClasses([]);
 
     try {
-      const url = new URL(`http://localhost:8080/api/java/${format}`);
+      const url = new URL("http://localhost:8080/api/java");
       url.searchParams.append("generateConstructors", generateConstructors.toString());
       url.searchParams.append("generateGettersAndSetters", generateGettersAndSetters.toString());
       url.searchParams.append("className", className);
@@ -28,7 +28,7 @@ const PojoGeneratorFrontend = () => {
       const response = await fetch(url.toString(), {
         method: "POST",
         headers: {
-          "Content-Type": getFormat(),
+          "Content-Type": `application/${format}`,
         },
         body: schemaInput,
       });
@@ -49,13 +49,6 @@ const PojoGeneratorFrontend = () => {
       setLoading(false);
     }
   };
-
-  const getFormat = () => {
-    if (format == "yaml") {
-      return "application/yaml"
-    }
-    return "application/json"
-  }
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">
